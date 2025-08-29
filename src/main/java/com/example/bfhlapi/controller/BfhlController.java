@@ -26,6 +26,10 @@ public class BfhlController {
             );
             return ResponseEntity.ok(response);
         } catch (Exception e) {
+            // Log the actual error for debugging
+            System.err.println("Error processing request: " + e.getMessage());
+            e.printStackTrace();
+            
             // Return error response
             DataResponse errorResponse = new DataResponse(
                 false,
@@ -40,6 +44,29 @@ public class BfhlController {
                 ""
             );
             return ResponseEntity.internalServerError().body(errorResponse);
+        }
+    }
+
+    @GetMapping("/bfhl")
+    public ResponseEntity<String> getInfo() {
+        return ResponseEntity.ok("BFHL API is running! Use POST method with JSON body to process data.");
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<DataResponse> testEndpoint() {
+        try {
+            // Test with sample data
+            DataResponse response = dataProcessingService.processData(
+                java.util.Arrays.asList("a", "1", "334", "4", "R", "$"),
+                "Test User",
+                "test@example.com",
+                "TEST123"
+            );
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            System.err.println("Test error: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().body(null);
         }
     }
 }
