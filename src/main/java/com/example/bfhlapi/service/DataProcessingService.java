@@ -11,15 +11,20 @@ import java.util.stream.Collectors;
 @Service
 public class DataProcessingService {
     
-    // User information - you can modify these as needed
-    private static final String FULL_NAME = "john_doe";
-    private static final String EMAIL = "john@xyz.com";
-    private static final String ROLL_NUMBER = "ABCD123";
+    // Default user information (fallback)
+    private static final String DEFAULT_FULL_NAME = "john_doe";
+    private static final String DEFAULT_EMAIL = "john@xyz.com";
+    private static final String DEFAULT_ROLL_NUMBER = "ABCD123";
     
-    public DataResponse processData(List<String> data) {
+    public DataResponse processData(List<String> data, String fullName, String email, String rollNumber) {
         try {
+            // Use provided user details or fallback to defaults
+            String userFullName = (fullName != null && !fullName.trim().isEmpty()) ? fullName : DEFAULT_FULL_NAME;
+            String userEmail = (email != null && !email.trim().isEmpty()) ? email : DEFAULT_EMAIL;
+            String userRollNumber = (rollNumber != null && !rollNumber.trim().isEmpty()) ? rollNumber : DEFAULT_ROLL_NUMBER;
+            
             // Generate user_id with current date
-            String user_id = generateUserId();
+            String user_id = generateUserId(userFullName);
             
             // Separate data into different categories
             List<String> oddNumbers = new ArrayList<>();
@@ -52,8 +57,8 @@ public class DataProcessingService {
             return new DataResponse(
                 true,
                 user_id,
-                EMAIL,
-                ROLL_NUMBER,
+                userEmail,
+                userRollNumber,
                 oddNumbers,
                 evenNumbers,
                 alphabets,
@@ -66,9 +71,9 @@ public class DataProcessingService {
             // Return error response
             return new DataResponse(
                 false,
-                generateUserId(),
-                EMAIL,
-                ROLL_NUMBER,
+                generateUserId(DEFAULT_FULL_NAME),
+                DEFAULT_EMAIL,
+                DEFAULT_ROLL_NUMBER,
                 new ArrayList<>(),
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -79,11 +84,13 @@ public class DataProcessingService {
         }
     }
     
-    private String generateUserId() {
+    private String generateUserId(String fullName) {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy");
         String dateString = currentDate.format(formatter);
-        return FULL_NAME + "_" + dateString;
+        // Convert full name to lowercase and replace spaces with underscores
+        String formattedName = fullName.toLowerCase().replaceAll("\\s+", "_");
+        return formattedName + "_" + dateString;
     }
     
     private boolean isNumeric(String str) {

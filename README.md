@@ -5,15 +5,13 @@ A Spring Boot REST API that processes arrays of data and returns categorized res
 ## Features
 
 - **POST /bfhl** - Main endpoint that processes input data arrays
-- **GET /health** - Health check endpoint
-- **GET /** - Beautiful HTML interface for testing the API
-- **GET /api-docs.html** - Comprehensive API documentation
+- **GET /** - Form-based web interface for data processing
 - Comprehensive error handling
 - Input validation
 - Cross-origin support
-- Modern, responsive web interface
-- Real-time API testing with visual feedback
-- Interactive examples and documentation
+- User-friendly form interface
+- Real-time data processing with visual feedback
+- Interactive examples for testing
 
 ## API Endpoint
 
@@ -24,7 +22,10 @@ Processes an array of data and returns categorized results.
 **Request Body:**
 ```json
 {
-  "data": ["a", "1", "334", "4", "R", "$"]
+  "data": ["a", "1", "334", "4", "R", "$"],
+  "fullName": "Vishal Madineni",
+  "email": "madinenivishal@gmail.com",
+  "rollNumber": "22BCE7757"
 }
 ```
 
@@ -32,9 +33,9 @@ Processes an array of data and returns categorized results.
 ```json
 {
   "is_success": true,
-  "user_id": "john_doe_17091999",
-  "email": "john@xyz.com",
-  "roll_number": "ABCD123",
+  "user_id": "vishal_madineni_29082025",
+  "email": "madinenivishal@gmail.com",
+  "roll_number": "22BCE7757",
   "odd_numbers": ["1"],
   "even_numbers": ["334", "4"],
   "alphabets": ["A", "R"],
@@ -90,50 +91,57 @@ Processes an array of data and returns categorized results.
 
 4. **Access the API:**
    - Main endpoint: `http://localhost:8080/bfhl`
-   - Health check: `http://localhost:8080/health`
    - Web interface: `http://localhost:8080/`
-   - API documentation: `http://localhost:8080/api-docs.html`
 
 ## Web Interface
 
-The project includes a beautiful, modern web interface for testing the API:
+The project includes a user-friendly form interface for data processing:
 
 ### Features:
-- 🎨 **Modern Design**: Clean, responsive interface with gradient backgrounds
-- ⚡ **Real-time Testing**: Instant API testing with visual feedback
-- 📝 **Interactive Examples**: Pre-loaded test cases from the exam
-- 🔄 **Live Status**: Real-time status indicators and loading animations
+- 📝 **Form-based Interface**: Collects user details and data array
+- ⚡ **Real-time Processing**: Instant data processing with visual feedback
+- 🎯 **Input Validation**: Validates all required fields
 - 📱 **Mobile Responsive**: Works perfectly on all devices
-- 🎯 **Error Handling**: Clear error messages and validation feedback
+- 🔄 **Live Status**: Real-time status indicators and loading animations
+- 📋 **Interactive Examples**: Pre-loaded test cases from the exam
+
+### Form Fields:
+- **Full Name**: User's complete name
+- **Email Address**: User's email for contact
+- **College Roll Number**: Student's roll number
+- **Data Array**: JSON array for processing
 
 ### Access:
 - **Main Interface**: `http://localhost:8080/`
-- **Documentation**: `http://localhost:8080/api-docs.html`
 
 ## Testing the API
 
 ### Web Interface Testing:
-Simply visit `http://localhost:8080/` and use the interactive interface to test the API with the provided examples.
+1. Visit `http://localhost:8080/`
+2. Fill in your personal details (name, email, roll number)
+3. Enter or select a data array for processing
+4. Click "Process Data" to submit
+5. View the processing results
 
 ### Command Line Testing:
 ```bash
 curl -X POST http://localhost:8080/bfhl \
   -H "Content-Type: application/json" \
-  -d '{"data": ["a", "1", "334", "4", "R", "$"]}'
+  -d '{"data": ["a", "1", "334", "4", "R", "$"], "fullName": "Vishal Madineni", "email": "madinenivishal@gmail.com", "rollNumber": "22BCE7757"}'
 ```
 
 ### Example 2:
 ```bash
 curl -X POST http://localhost:8080/bfhl \
   -H "Content-Type: application/json" \
-  -d '{"data": ["2", "a", "y", "4", "&", "-", "*", "5", "92", "b"]}'
+  -d '{"data": ["2", "a", "y", "4", "&", "-", "*", "5", "92", "b"], "fullName": "Vishal Madineni", "email": "madinenivishal@gmail.com", "rollNumber": "22BCE7757"}'
 ```
 
 ### Example 3:
 ```bash
 curl -X POST http://localhost:8080/bfhl \
   -H "Content-Type: application/json" \
-  -d '{"data": ["A", "ABcD", "DOE"]}'
+  -d '{"data": ["A", "ABcD", "DOE"], "fullName": "Vishal Madineni", "email": "madinenivishal@gmail.com", "rollNumber": "22BCE7757"}'
 ```
 
 ## Deployment
