@@ -47,11 +47,6 @@ public class BfhlController {
         }
     }
 
-    @GetMapping("/bfhl")
-    public ResponseEntity<String> getInfo() {
-        return ResponseEntity.ok("BFHL API is running! Use POST method with JSON body to process data.");
-    }
-
     @GetMapping("/test")
     public ResponseEntity<DataResponse> testEndpoint() {
         try {
